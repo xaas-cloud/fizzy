@@ -1,7 +1,3 @@
-.comments {
-
-}
-
 .comment {
   padding:
       calc(var(--block-space) * 1.5)
@@ -28,5 +24,16 @@
     &:last-child {
       margin-block-end: 0;
     }
+  }
+}
+
+.boost {
+  margin-block: calc(var(--block-space) * -2);
+  padding: var(--block-space) var(--block-space-double);
+  z-index: 1;
+
+  + .boost,
+  &:has( + .boost) {
+    margin-block: 0;
   }
 }

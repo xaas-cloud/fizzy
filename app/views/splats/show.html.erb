@@ -24,10 +24,7 @@
   <%= render @splat %>
 </div>
 
-<section class="comments panel center borderless margin-block flex flex-column gap" style="--splat-color: <%= @splat.color %>;">
-
-  <hr />
-  <%= render @splat.comments %>
-
+<section class="comments align-center panel center borderless margin-block flex flex-wrap gap" style="--splat-color: <%= @splat.color %>;">
+  <%= render partial: "comments/comment", collection: (@splat.comments + @splat.boosts).sort_by { |comment| comment.updated_at } %>
   <%= render "comments/new" %>
 </section>
