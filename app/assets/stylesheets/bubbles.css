@@ -65,7 +65,9 @@
   }
 
   .bubble__perma & {
-    --bubble-size: 65vh !important;
+    --bubble-size: 100% !important;
+
+    z-index: 1;
   }
 }
 
@@ -214,6 +216,11 @@
 
 .bubble__notes {
   position: relative;
+}
+
+.bubble__perma {
+  block-size: 65cqb;
+  max-inline-size: 100%;
 }
 
 .bubble__svg {

@@ -6,6 +6,10 @@
   font-size: clamp(1rem, 1.6cqi, 2rem);
   max-inline-size: 70ch;
   row-gap: var(--comment-padding-block);
+
+  > :first-child {
+    margin-block-start: var(--comment-padding-block);
+  }
 }
 
 .comment__avatar {
