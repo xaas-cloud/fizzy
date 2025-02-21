@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     resource :tray, only: :show
     resource :mark_all_read, only: :create
     resources :mark_read, only: :create
+    resource :settings, only: :show
   end
 
   resources :notifications do

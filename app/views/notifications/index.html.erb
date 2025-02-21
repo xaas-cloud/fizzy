@@ -1,7 +1,8 @@
 <% @page_title = "Notifications" %>
 
 <% content_for :header do %>
-  <nav>
+  <nav class="align-start">
+    <div class="btn btn--placeholder flex-item-justify-start"></div>
     <header class="flex flex-column center margin-block-end">
       <div class="flex align-center gap-half justify-center">
         <%= link_to "Collections", root_path %>
@@ -9,6 +10,11 @@
       </div>
       <h1 class="txt-x-large"><%= @page_title %></h1>
     </header>
+
+    <%= link_to notifications_settings_path, class: "btn borderless flex-item-justify-end" do %>
+      <%= image_tag "settings.svg", size: 20 %>
+      <span class="for-screen-reader">Notification settings</span>
+    <% end %>
   </nav>
 <% end %>
 
