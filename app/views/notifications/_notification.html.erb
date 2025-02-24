@@ -1,11 +1,11 @@
-<% cache [notification, "2025-02-22"] do %>
+<% cache [notification, "2025-02-24"] do %>
   <%= notification_tag notification do %>
     <div class="avatar txt-small flex-item-no-shrink">
       <%= avatar_image_tag(notification.creator) %>
     </div>
 
     <div class="flex flex-column txt-tight-lines min-width flex-item-grow">
-      <strong class="overflow-ellipsis"><%= notification_title(notification) %></strong>
+      <strong class="overflow-ellipsis notification__title"><%= notification_title(notification) %></strong>
         <div class="overflow-ellipsis">
           <% if notification.event.action == "commented" %>
             <%= "#{ strip_tags(notification.event.comment.body_html).blank? ? "#{ notification.event.creator.name } replied" : "#{ notification.event.creator.name }:" } #{ strip_tags(notification.event.comment.body_html).truncate(200) }" %>

@@ -111,6 +111,10 @@
   }
 }
 
+.notification__title {
+  padding-inline-end: calc(var(--inline-space-half) + 1.2em);
+}
+
 .notification-tray__expander {
   --hover-size: 0;
   --outline-size: 0;
