@@ -28,6 +28,14 @@ class NotifierTest < ActiveSupport::TestCase
     assert_equal [ users(:kevin) ], notifications.map(&:user)
   end
 
+  test "does not create a notification for access-only users" do
+    buckets(:writebook).access_for(users(:kevin)).access_only!
+
+    notifications = Notifier.for(events(:layout_commented)).generate
+
+    assert_equal [ users(:kevin) ], notifications.map(&:user)
+  end
+
   test "the published event creates notifications for subscribers as well as watchers" do
     notifications = Notifier.for(events(:logo_published)).generate
 
@@ -40,9 +48,20 @@ class NotifierTest < ActiveSupport::TestCase
     assert_equal bubbles(:logo), Notification.last.resource
   end
 
-  test "for assignment events only create a notification for the assignee" do
+  test "assignment events only create a notification for the assignee" do
+    buckets(:writebook).access_for(users(:jz)).watching!
+    buckets(:writebook).access_for(users(:kevin)).everything!
+
     notifications = Notifier.for(events(:logo_assignment_jz)).generate
 
     assert_equal [ users(:jz) ], notifications.map(&:user)
+  end
+
+  test "assignment events do not notify users who are access-only for the collection" do
+    buckets(:writebook).access_for(users(:jz)).access_only!
+
+    notifications = Notifier.for(events(:logo_assignment_jz)).generate
+
+    assert_empty notifications
   end
 end

@@ -1,18 +1,13 @@
-<%= turbo_frame_tag dom_id(bucket, :subscription) do %>
-  <%= form_with url: bucket_subscriptions_path(bucket), method: :put, data: { controller: "form"} do |form| %>
-    <div class="flex align-center gap-half pad-inline">
-      <h2 class="txt-medium overflow-ellipsis">
-        <%= bucket.name %>
-      </h2>
+<%= turbo_frame_tag dom_id(bucket, :involvement) do %>
+  <div class="flex align-center gap-half pad-inline">
+    <h2 class="txt-medium overflow-ellipsis">
+      <%= bucket.name %>
+    </h2>
 
-      <hr class="separator--horizontal flex-item-grow" style="--border-color: var(--color-subtle-dark); --border-style: dashed" aria-hidden="true">
+    <hr class="separator--horizontal flex-item-grow" style="--border-color: var(--color-subtle-dark); --border-style: dashed" aria-hidden="true">
 
-      <label class="switch flex-item-no-shrink">
-        <%= form.checkbox :subscribed, checked: bucket.subscribed_by?(user), id: dom_id(bucket, :subscribed),
-              class: "switch__input", include_hidden: false, data: { action: "form#submit" } %>
-          <span class="switch__btn round"></span>
-          <span class="for-screen-reader">Enable notifications for this bucket</span>
-      </label>
-    </div>
-  <% end %>
+    <label class="switch flex-item-no-shrink">
+      <%= access_involvement_advance_button(bucket, user) %>
+    </label>
+  </div>
 <% end %>

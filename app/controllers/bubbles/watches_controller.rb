@@ -1,10 +1,6 @@
 class Bubbles::WatchesController < ApplicationController
   include BubbleScoped, BucketScoped
 
-  def show
-    @watchers = @bubble.watchers_and_subscribers.sorted_with_user_first(Current.user)
-  end
-
   def create
     set_watching_and_redirect(true)
   end

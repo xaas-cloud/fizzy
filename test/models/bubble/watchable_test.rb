@@ -3,7 +3,7 @@ require "test_helper"
 class Bubble::WatchableTest < ActiveSupport::TestCase
   setup do
     Watch.destroy_all
-    Subscription.destroy_all
+    Access.all.update!(involvement: :access_only)
   end
 
   test "watched_by?" do
@@ -16,9 +16,8 @@ class Bubble::WatchableTest < ActiveSupport::TestCase
     assert_not bubbles(:logo).watched_by?(users(:kevin))
   end
 
-  test "watched_by? when subscribed to the bucket" do
-    buckets(:writebook).subscribe(users(:kevin))
-
+  test "watched_by? when notifications are set on the bucket" do
+    buckets(:writebook).access_for(users(:kevin)).watching!
     assert bubbles(:text).watched_by?(users(:kevin))
 
     bubbles(:logo).set_watching(users(:kevin), false)
@@ -26,16 +25,14 @@ class Bubble::WatchableTest < ActiveSupport::TestCase
   end
 
   test "bubbles are initially watched by their creator" do
-    buckets(:writebook).unsubscribe(users(:kevin))
-
     bubble = buckets(:writebook).bubbles.create!(creator: users(:kevin))
 
     assert bubble.watched_by?(users(:kevin))
   end
 
   test "watchers_and_subscribers" do
-    buckets(:writebook).subscribe(users(:kevin))
-    buckets(:writebook).subscribe(users(:jz))
+    buckets(:writebook).access_for(users(:kevin)).watching!
+    buckets(:writebook).access_for(users(:jz)).everything!
 
     bubbles(:logo).set_watching(users(:kevin), true)
     bubbles(:logo).set_watching(users(:jz), false)

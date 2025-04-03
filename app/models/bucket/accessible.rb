@@ -20,11 +20,16 @@ module Bucket::Accessible
     end
 
     has_many :users, through: :accesses
+    has_many :access_only_users, -> { merge(Access.access_only) }, through: :accesses, source: :user
 
     scope :all_access, -> { where(all_access: true) }
 
     after_create -> { accesses.grant_to creator }
     after_save_commit :grant_access_to_everyone
+  end
+
+  def access_for(user)
+    accesses.find_by(user: user)
   end
 
   private
