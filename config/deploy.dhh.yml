@@ -4,7 +4,7 @@ servers:
       - cph-app-101
   jobs:
     hosts:
-      - cph-app-102
+      - cph-app-101
   web-replica:
     hosts:
       - cph-app-102
@@ -40,12 +40,12 @@ accessories:
   beamer-replica:
     <<: *beamer-accessory
     service: beamer-replica
-    cmd: beamer replica --primary=http://test-1:5000/ --dir=/storage
+    cmd: beamer replica --primary=http://cph-app-101:5000/ --dir=/storage
     roles:
       - web-replica
 
   load-balancer:
-    host: cph-app-103
+    host: cph-lb-103
     image: basecamp/kamal-proxy:lb
     options:
       publish:
