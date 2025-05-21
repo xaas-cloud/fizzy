@@ -25,10 +25,10 @@
           class: "btn btn--reversed borderless fill-transparent shadow center txt-uppercase txt-x-small full-width",
           data: { action: "click->dialog#close" } %>
 
-    <%= button_to settings_notifications_path,
+    <%= link_to settings_notifications_path,
           class: "tray__notification-settings-action btn btn--reversed fill-transparent borderless flex-item-justify-start shadow txt-xx-small",
           title: "Notification settings",
-          data: { action: "click->dialog#close", turbo_frame: "notifications" } do %>
+          data: { action: "click->dialog#close" } do %>
       <%= icon_tag "settings" %>
     <% end %>
   </div>
