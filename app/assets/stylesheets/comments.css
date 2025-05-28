@@ -37,6 +37,10 @@
   }
 
   .comment__author {
+    .comment--system & strong {
+      display: none;
+    }
+
     .btn {
       font-weight: inherit;
     }
@@ -49,9 +53,17 @@
     .comment--mine_ & {
       margin-inline: calc(var(--comment-padding-inline) * -0.75);
     }
+
+    .comment--system & {
+      display: none;
+    }
   }
 
   .comment__body {
+    .comment--system & {
+      text-align: center;
+    }
+
     p {
       &:first-child {
         margin-block-start: 0;
@@ -95,14 +107,30 @@
     }
   }
 
-  .comment__event {
+  .comment--system {
+    --comment-padding-block: calc(var(--block-space) * 0.66);
+
+    line-height: 1.2;
     max-inline-size: var(--comment-max);
+    text-align: center;
+    
 
     &::before {
       /* Make up space for lack of avatar */
       content: "";
       display: flex;
       inline-size: calc(var(--comment-padding-inline) * 0.75);
+    }
+
+    .comment__author {
+      a {
+        margin: 0 auto;
+      }
+    }
+
+    .comment__body {
+      margin-block-start: calc(var(--block-space-half) * -0.33);
+      text-align: center !important;
     }
   }
 
