@@ -6,11 +6,11 @@
   <div class="comment__content flex-inline flex-column full-width">
     <div class="comment__body rich-text-content txt-align-start">
       <%= form_with model: Comment.new, url: card_comments_path(card), class: "flex flex-column gap full-width",
-            data: { controller: "form paste local-save",
+            data: { controller: "form local-save",
                     local_save_key_value: "comment-#{card.id}",
-                    action: "turbo:submit-end->local-save#submit keydown.ctrl+enter->form#submit:prevent keydown.meta+enter->form#submit:prevent keydown.esc->form#cancel:stop paste->paste#pasteFiles" } do |form| %>
+                    action: "turbo:submit-end->local-save#submit keydown.ctrl+enter->form#submit:prevent keydown.meta+enter->form#submit:prevent keydown.esc->form#cancel:stop" } do |form| %>
         <%= form.rich_textarea :body, required: true, placeholder: new_comment_placeholder(card),
-              data: { local_save_target: "input", action: "house-md:change->local-save#save turbo:morph-element->local-save#restoreContent" } %>
+              data: { local_save_target: "input", action: "actiontext:change->local-save#save turbo:morph-element->local-save#restoreContent" } %>
         <%= form.button class: "comment__submit btn btn--reversed flex-item-justify-start" do %>
           <span>Post this comment</span>
         <% end %>

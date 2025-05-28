@@ -47,8 +47,8 @@ export default class extends Controller {
   }
 
   #triggerChangeEvent(newValue) {
-    if (this.inputTarget.tagName === "HOUSE-MD") {
-      this.inputTarget.dispatchEvent(new CustomEvent('house-md:change', {
+    if (this.inputTarget.tagName === "LEXICAL-EDITOR") {
+      this.inputTarget.dispatchEvent(new CustomEvent('actiontext:change', {
         bubbles: true,
         detail: {
           previousContent: '',
