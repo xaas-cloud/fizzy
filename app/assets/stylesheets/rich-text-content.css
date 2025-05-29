@@ -1,6 +1,6 @@
 @layer components {
   .rich-text-content {
-    --block-margin: 0.65lh;
+    --block-margin: 1rem;
 
     :where(h1, h2, h3, h4, h5, h6) {
       display: block;
@@ -102,7 +102,7 @@
     .attachment__figure {
       --hover-size: 0;
     }
-    
+
     .attachment--file {
       align-items: center;
       display: inline-flex;
