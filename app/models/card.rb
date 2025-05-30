@@ -12,7 +12,7 @@ class Card < ApplicationRecord
   has_rich_text :description
 
   before_save :set_default_title, if: :published?
-  after_save :grant_access_to_assignees, if: :saved_change_to_collection_id?
+  after_save :handle_collection_change, if: :saved_change_to_collection_id?
 
   scope :reverse_chronologically, -> { order created_at: :desc, id: :desc }
   scope :chronologically, -> { order created_at: :asc, id: :asc }
@@ -41,8 +41,20 @@ class Card < ApplicationRecord
       self.title = "Untitled" if title.blank?
     end
 
+    def handle_collection_change
+      transaction do
+        old_collection = Collection.find_by(id: collection_id_before_last_save)
+        if old_collection.present?
+          track_event "collection_changed", particulars: { 
+            old_collection: old_collection.name,
+            new_collection: collection.name
+          }
+        end
+        grant_access_to_assignees unless collection.all_access?
+      end
+    end
+
     def grant_access_to_assignees
-      return if collection.all_access?
       collection.accesses.grant_to(assignees)
     end
 end

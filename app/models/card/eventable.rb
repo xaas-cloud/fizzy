@@ -7,7 +7,6 @@ module Card::Eventable
     before_create { self.last_active_at = Time.current }
 
     after_save :track_title_change, if: :saved_change_to_title?
-    after_save :track_collection_change, if: :saved_change_to_collection_id?
   end
 
   def event_was_created(event)
@@ -25,17 +24,6 @@ module Card::Eventable
     def track_title_change
       if title_before_last_save.present?
         track_event "title_changed", particulars: { old_title: title_before_last_save, new_title: title }
-      end
-    end
-
-    def track_collection_change
-      old_collection = Collection.find_by(id: collection_id_before_last_save)
-      
-      if old_collection.present?
-        track_event "collection_changed", particulars: { 
-          old_collection: old_collection.name,
-          new_collection: collection.name
-        }
       end
     end
 
