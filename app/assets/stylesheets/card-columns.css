@@ -122,6 +122,8 @@
   /* ------------------------------------------------------------------------ */
 
   .cards--considering {
+    padding-inline-start: calc(var(--cards-gap) / 2);
+
     .card {
       --text-xx-large: 1.6em;
       --text-small: 1.1em;
@@ -247,5 +249,12 @@
         }
       }
     }
+  }
+
+  /* Doing
+  /* ------------------------------------------------------------------------ */
+
+  .cards--doing {
+    padding-inline-end: calc(var(--cards-gap) / 2);
   }
 }
