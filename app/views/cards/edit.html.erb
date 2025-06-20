@@ -11,7 +11,7 @@
     <%= form.rich_textarea :description, class: "card-field__description rich-text-content",
           placeholder: "Add some notes, context, pictures, or video about this…",
           data: { action: "keydown.ctrl+enter->form#submit:prevent keydown.meta+enter->form#submit:prevent keydown.esc->form#cancel:stop" } do %>
-      <%= mentions_prompt %>
+      <%= mentions_prompt(@card.collection) %>
       <%= cards_prompt %>
     <% end %>
     </div>

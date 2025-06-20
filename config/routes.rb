@@ -104,8 +104,12 @@ Rails.application.routes.draw do
   end
 
   namespace :prompts do
-    resources :users
     resources :cards
+    resources :collections do
+      scope module: :collections do
+        resources :users
+      end
+    end
   end
 
   namespace :public do

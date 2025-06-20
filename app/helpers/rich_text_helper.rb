@@ -1,6 +1,6 @@
 module RichTextHelper
-  def mentions_prompt
-    content_tag "lexical-prompt", "", trigger: "@", src: prompts_users_path, name: "mention"
+  def mentions_prompt(collection)
+    content_tag "lexical-prompt", "", trigger: "@", src: prompts_collection_users_path(collection), name: "mention"
   end
 
   def cards_prompt
