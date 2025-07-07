@@ -306,7 +306,28 @@
     .tray__item {
       --tray-item-z: calc(10 - var(--tray-item-index));
 
+      position: relative;
+
       &:nth-child(1n + var(--tray-max-items)) { display: none; }
+    }
+
+    .tray__remove-pin-btn {
+      --btn-icon-size: 1.25em;
+      --btn-size: 2em;
+
+      background-color: var(--card-bg-color);
+      inset: 0 0 auto auto;
+      opacity: 0;
+      position: absolute;
+      z-index: 1;
+
+      .tray__dialog[open] & {
+        opacity: 0.66;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
     }
 
     .avatar,
@@ -384,17 +405,6 @@
 
         .icon {
           opacity: 0.5;
-        }
-      }
-    }
-
-    /* On desktop, don't expand if there's only one pin */
-    @media (min-width: 800px) {
-      .tray__dialog:has(.tray__item:only-child) {
-        pointer-events: unset;
-
-        ~ .tray__toggle {
-          display: none;
         }
       }
     }
