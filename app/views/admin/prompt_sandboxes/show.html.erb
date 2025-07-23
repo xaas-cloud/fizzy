@@ -15,7 +15,7 @@
     <div class="field">
       <%= form.label :llm_model, "LLM Model:" %>
       <%= form.select :llm_model,
-            options_for_select(@llm_models, @llm_model),
+            options_for_select(llm_model_options, @llm_model),
             {} %>
     </div>
 
