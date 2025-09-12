@@ -1,7 +1,7 @@
 <% filter = user_filtering.filter %>
 
-<% if user_filtering.show_indexed_by? %>
-  <div class="quick-filter position-relative <%= "default-value" if filter.indexed_by.all? %>" data-controller="dialog" data-action="keydown.esc->dialog#close click@document->dialog#closeOnClickOutside">
+<%= tag.div class: class_names("quick-filter position-relative", "default-value": filter.indexed_by.all?),
+      data: { controller: "dialog", action: "keydown.esc->dialog#close click@document->dialog#closeOnClickOutside", filter_show: user_filtering.show_indexed_by? } do %>
     <button class="btn input input--select flex-inline txt-x-small" data-action="click->dialog#open:stop">
       <span class="overflow-ellipsis">
         <%= filter.indexed_by == "all" ? "Status" : filter.indexed_by.humanize %>
@@ -21,9 +21,7 @@
 
               <%= hidden_field_tag :indexed_by, index %>
 
-              <% if user_filtering.expanded? %>
-                <%= hidden_field_tag :expand_all, user_filtering.expanded? %>
-              <% end %>
+              <%= hidden_field_tag :expand_all, true, disabled: !user_filtering.expanded?, data: { toggle_enable_target: "element" } %>
 
               <%= form.button type: "submit", class: "popup__item btn" do %>
                 <span class="overflow-ellipsis flex-item-grow"><%= index.humanize %></span>
@@ -36,5 +34,4 @@
         <% end %>
       </ul>
     <% end %>
-  </div>
 <% end %>

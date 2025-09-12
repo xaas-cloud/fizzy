@@ -47,28 +47,28 @@ class User::Filtering
   end
 
   def show_indexed_by?
-    expanded? || !filter.indexed_by.all?
+    !filter.indexed_by.all?
   end
 
   def show_sorted_by?
-    expanded? || !filter.sorted_by.latest?
+    !filter.sorted_by.latest?
   end
 
   def show_tags?
     return unless Tag.any?
-    expanded? || filter.tags.any?
+    filter.tags.any?
   end
 
   def show_assignees?
-    expanded? || filter.assignees.any?
+    filter.assignees.any?
   end
 
   def show_creators?
-    expanded? || filter.creators.any?
+    filter.creators.any?
   end
 
   def show_closers?
-    expanded? || filter.closers.any?
+    filter.closers.any?
   end
 
   def enable_collection_filtering(&block)

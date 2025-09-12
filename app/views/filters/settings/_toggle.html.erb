@@ -1,13 +1,11 @@
 <% filter = user_filtering.filter %>
 
 <% if user_filtering.expanded? %>
-  <%= link_to cards_path(filter.as_params), class: "btn txt-x-small btn--reversed", aria: { selected: true } do %>
+  <button type="button" class="btn txt-x-small btn--reversed" aria-selected="true" aria-label="Close filter options" data-action="toggle-class#toggle toggle-enable#toggle">
     <%= icon_tag "filter" %>
-    <span class="for-screen-reader">Close filter options</span>
-  <% end %>
+  </button>
 <% else %>
-  <%= link_to cards_path(filter.as_params.merge(expand_all: true)), class: "btn txt-x-small" do %>
+  <button type="button" class="btn txt-x-small" aria-label="Expand filter options" data-action="toggle-class#toggle toggle-enable#toggle">
     <%= icon_tag "filter" %>
-    <span class="for-screen-reader">Expand filter options</span>
-  <% end %>
+  </button>
 <% end %>

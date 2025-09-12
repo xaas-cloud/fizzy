@@ -1,6 +1,6 @@
 <% filter = user_filtering.filter %>
-<% if filter.public_send("#{name}_window").present? %>
-  <div class="quick-filter position-relative" data-controller="dialog" data-action="keydown.esc->dialog#close click@document->dialog#closeOnClickOutside">
+<%= tag.div class: "quick-filter position-relative",
+      data: { controller: "dialog", action: "keydown.esc->dialog#close click@document->dialog#closeOnClickOutside", filter_show: filter.public_send("#{name}_window").present? } do %>
     <button class="btn input input--select flex-inline txt-x-small" data-action="click->dialog#open:stop">
       <span class="overflow-ellipsis">
         <%= "#{label} #{TimeWindowParser.human_name_for(filter.public_send(name))&.downcase}" %>
@@ -29,5 +29,4 @@
         <% end %>
       <% end %>
     </dialog>
-  </div>
 <% end %>

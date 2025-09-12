@@ -1,7 +1,7 @@
 <% filter = user_filtering.filter %>
 
-<% if user_filtering.show_sorted_by? %>
-  <div class="quick-filter position-relative <%= "default-value" if filter.sorted_by.latest? %>" data-controller="dialog" data-action="keydown.esc->dialog#close click@document->dialog#closeOnClickOutside">
+<%= tag.div class: class_names("quick-filter position-relative", "default-value": filter.sorted_by.latest?), 
+      data: { controller: "dialog", action: "keydown.esc->dialog#close click@document->dialog#closeOnClickOutside", filter_show: user_filtering.show_sorted_by? } do %>
     <button class="btn input input--select flex-inline txt-x-small" data-action="click->dialog#open:stop">
       <span class="overflow-ellipsis">
         <%= sorted_by_label(filter.sorted_by) %>
@@ -21,9 +21,7 @@
 
               <%= hidden_field_tag :sorted_by, sort %>
 
-              <% if user_filtering.expanded? %>
-                <%= hidden_field_tag :expand_all, user_filtering.expanded? %>
-              <% end %>
+              <%= hidden_field_tag :expand_all, true, disabled: !user_filtering.expanded?, data: { toggle_enable_target: "element" } %>
 
               <%= form.button type: "submit", class: "popup__item btn" do %>
                 <span class="overflow-ellipsis flex-item-grow"><%= sorted_by_label(sort) %></span>
@@ -36,5 +34,4 @@
         <% end %>
       </ul>
     <% end %>
-  </div>
 <% end %>

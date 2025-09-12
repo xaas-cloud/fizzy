@@ -1,7 +1,7 @@
 <% filter = user_filtering.filter %>
 
-<% if user_filtering.show_tags? %>
-  <div class="quick-filter position-relative" data-controller="dialog" data-action="keydown.esc->dialog#close click@document->dialog#closeOnClickOutside">
+<%= tag.div class: "quick-filter position-relative",
+      data: { controller: "dialog", action: "keydown.esc->dialog#close click@document->dialog#closeOnClickOutside", filter_show: user_filtering.show_tags? } do %>
     <button class="btn input input--select flex-inline txt-x-small" data-action="click->dialog#open:stop">
       <span class="overflow-ellipsis">
         <% if filter.tags.any? %>
@@ -38,9 +38,7 @@
                 <%= hidden_field_tag "tag_ids[]", tag.id %>
               <% end %>
 
-              <% if user_filtering.expanded? %>
-                <%= hidden_field_tag :expand_all, user_filtering.expanded? %>
-              <% end %>
+              <%= hidden_field_tag :expand_all, true, disabled: !user_filtering.expanded?, data: { toggle_enable_target: "element" } %>
 
               <%= form.button type: "submit", class: "popup__item btn" do %>
                 <span class="overflow-ellipsis flex-item-grow"><%= tag.hashtag %></span>
@@ -53,5 +51,4 @@
         <% end %>
       </ul>
     <% end %>
-  </div>
 <% end %>

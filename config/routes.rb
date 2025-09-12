@@ -124,6 +124,7 @@ Rails.application.routes.draw do
   namespace :my do
     resources :pins
     resource :timezone
+    resource :menu
   end
 
   namespace :prompts do

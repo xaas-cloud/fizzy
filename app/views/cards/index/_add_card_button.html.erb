@@ -1,10 +1,10 @@
 <% if collection = user_filtering.single_collection %>
-  <div class="card card--new flex flex-column gap-half">
-    <%= button_to collection_cards_path(collection), method: :post, class: "btn btn--link" do %>
+  <div class="card card--new">
+    <%= button_to collection_cards_path(collection), method: :post, class: "btn", form: { data: { turbo_frame: "_top" } } do %>
       <%= icon_tag "add" %>
       <span>Add a card</span>
     <% end %>
-    
+
     <hr class="separator--horizontal full-width" aria-hidden="true">
 
     <footer class="flex flex-column gap-half">

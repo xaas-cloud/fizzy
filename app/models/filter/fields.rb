@@ -47,6 +47,10 @@ module Filter::Fields
     def terms
       Array(super)
     end
+
+    def terms=(value)
+      super(Array(value).filter(&:present?))
+    end
   end
 
   def with(**fields)
