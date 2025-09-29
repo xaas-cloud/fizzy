@@ -4,6 +4,10 @@ export default class extends Controller {
   static classes = [ "collapsed" ]
   static targets = [ "column", "button" ]
 
+  connect() {
+    this.#restoreColumns()
+  }
+
   toggle({ target }) {
     const column = target.closest('[data-collapsible-columns-target="column"]')
     this.#toggleColumn(column);
@@ -23,6 +27,9 @@ export default class extends Controller {
     } else {
       this.#collapse(column)
     }
+
+    console.log("TOGGLE")
+    console.log(localStorage)
   }
 
   #collapseAllExcept(clickedColumn) {
@@ -38,16 +45,35 @@ export default class extends Controller {
   }
 
   #collapse(column) {
+    const key = this.#localStorageKeyFor(column)
+
     this.#buttonFor(column).setAttribute("aria-expanded", "false")
     column.classList.add(this.collapsedClass)
+    localStorage.removeItem(key)
   }
 
   #expand(column) {
+    const key = this.#localStorageKeyFor(column)
+
     this.#buttonFor(column).setAttribute("aria-expanded", "true")
     column.classList.remove(this.collapsedClass)
+    localStorage.setItem(key, true)
   }
 
   #buttonFor(column) {
     return this.buttonTargets.find(button => column.contains(button))
+  }
+
+  #restoreColumns() {
+    this.columnTargets.forEach(column => {
+      const key = this.#localStorageKeyFor(column)
+      if (localStorage.getItem(key)) {
+        this.#expand(column)
+      }
+    })
+  }
+
+  #localStorageKeyFor(column) {
+    return `expand-${column.getAttribute("id")}`
   }
 }
