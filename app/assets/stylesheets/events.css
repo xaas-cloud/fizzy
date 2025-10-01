@@ -97,6 +97,17 @@
     position: absolute;
   }
 
+  .events__filter-select {
+    font-weight: inherit;
+    text-decoration: underline;
+
+    @media (any-hover: hover) {
+      &:hover {
+        --btn-color: var(--color-link);
+      }
+    }
+  }
+
   .events__day {
     position: relative;
 

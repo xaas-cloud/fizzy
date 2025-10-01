@@ -7,10 +7,9 @@
   <%= render "filters/menu", user_filtering: @user_filtering %>
   <%= render "events/index/add_card_button", user_filtering: @user_filtering %>
 
-  <h1 class="header__title overflow-ellipsis">
-    <div class="overflow-ellipsis">
-      Activity in <%= @user_filtering.selected_collections_label %>
-    </div>
+  <h1 class="header__title">
+    <span>Activity in</span>
+    <%= render "events/index/filter", user_filtering: @user_filtering %>
   </h1>
 <% end %>
 
