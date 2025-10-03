@@ -1290,16 +1290,6 @@ columns:
     default_function:
     collation:
     comment:
-  - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
-    auto_increment:
-    name: external_user_id
-    cast_type: *3
-    sql_type_metadata: *4
-    'null': true
-    default:
-    default_function:
-    collation:
-    comment:
   - *6
   - *10
   - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
@@ -3100,22 +3090,6 @@ indexes:
     valid: true
   - !ruby/object:ActiveRecord::ConnectionAdapters::IndexDefinition
     table: users
-    name: index_users_on_external_user_id
-    unique: true
-    columns:
-    - external_user_id
-    lengths: {}
-    orders: {}
-    opclasses: {}
-    where:
-    type:
-    using:
-    include:
-    nulls_not_distinct:
-    comment:
-    valid: true
-  - !ruby/object:ActiveRecord::ConnectionAdapters::IndexDefinition
-    table: users
     name: index_users_on_role
     unique: false
     columns:
@@ -3248,4 +3222,4 @@ indexes:
     comment:
     valid: true
   workflows: []
-version: 20250924124737
+version: 20251001181713
