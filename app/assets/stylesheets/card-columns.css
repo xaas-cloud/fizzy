@@ -567,13 +567,20 @@
     }
   }
 
-  .card.card--new {
+  /* Collection tools
+  /* -------------------------------------------------------------------------- */
+
+  .collection-tools.card {
     --border-color: var(--color-selected-dark);
     --border-size: 1px;
     --card-padding-block: var(--block-space);
 
-    border: 1px solid var(--color-selected-dark);
+    border: 1px solid var(--border-color);
     text-align: center;
+
+    .separator--horizontal {
+      margin-block: var(--block-space);
+    }
 
     .btn--link {
       font-size: 1.2em;
@@ -593,6 +600,35 @@
       font-size: 1.2em;
       font-weight: 500;
       padding: 0.5em 0.3em;
+    }
+  }
+
+  .collection-tools__watching {
+    display: flex;
+    gap: 0.5ch;
+    inline-size: 100%;
+    margin-block: var(--block-space-half);
+    overflow: hidden;
+    place-content: center;
+    position: relative;
+
+    &:before,
+    &:after {
+      aspect-ratio: 0.5;
+      background: linear-gradient(to right, var(--color-canvas), transparent);
+      content: "";
+      inset-block: 0;
+      position: absolute;
+      z-index: 1;
+    }
+
+    &:before {
+      inset-inline-start: 0;
+    }
+
+    &:after {
+      inset-inline-end: 0;
+      rotate: 180deg;
     }
   }
 

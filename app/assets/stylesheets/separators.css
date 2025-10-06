@@ -14,5 +14,6 @@
     border-block-start: var(--border-size, 1px) var(--border-style, solid) var(--border-color, currentColor);
     border-inline: 0;
     display: flex;
+    inline-size: 100%;
   }
 }

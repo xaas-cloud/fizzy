@@ -35,7 +35,7 @@ module AccessesHelper
     displayed_watchers = watchers.limit(MAX_DISPLAYED_WATCHERS)
     overflow_count = watchers.count - MAX_DISPLAYED_WATCHERS
 
-    tag.div(class: "flex gap-half justify-center") do
+    tag.div(class: "collection-tools__watching") do
       safe_join([
         safe_join(displayed_watchers.map { |watcher| avatar_tag(watcher) }),
         (tag.span("+#{overflow_count}", class: "overflow-count") if overflow_count > 0)
