@@ -1,37 +1,37 @@
 <%= render "cards/display/common/collection", card: card do %>
   <div class="align-self-center position-relative txt-small" data-controller="dialog" data-action="keydown.esc->dialog#close:stop click@document->dialog#closeOnClickOutside" <%= "hidden" if card.closed? %>>
-    <button class="collection-picker__button btn btn--reversed card__hide-on-index fill-transparent" data-action="click->dialog#open:stop">
-      <%= icon_tag "caret-down" %>
-      <span class="for-screen-reader">Choose a collection for this card</span>
-    </button>
+    <% if Current.user.collections.count > 1 %>
+      <button class="collection-picker__button btn btn--reversed card__hide-on-index fill-transparent" data-action="click->dialog#open:stop">
+        <%= icon_tag "caret-down" %>
+        <span class="for-screen-reader">Choose a collection for this card</span>
+      </button>
 
-    <dialog class="popup panel flex-column align-start gap-half fill-white shadow margin-block-double" data-dialog-target="dialog">
-      <%= tag.div class: "max-width full-width", data: {
-          action: "turbo:before-cache@document->dialog#close dialog:show@document->navigable-list#reset keydown->navigable-list#navigate filter:changed->navigable-list#reset",
-          controller: "filter navigable-list",
-          dialog_target: "dialog",
-          navigable_list_focus_on_selection_value: false,
-				  navigable_list_actionable_items_value: true } do %>
-        <strong class="popup__title pad-inline-half">Move this card to…</strong>
+      <dialog class="popup panel flex-column align-start gap-half fill-white shadow margin-block-double" data-dialog-target="dialog">
+        <%= tag.div class: "max-width full-width", data: {
+            action: "turbo:before-cache@document->dialog#close dialog:show@document->navigable-list#reset keydown->navigable-list#navigate filter:changed->navigable-list#reset",
+            controller: "filter navigable-list",
+            dialog_target: "dialog",
+            navigable_list_focus_on_selection_value: false,
+            navigable_list_actionable_items_value: true } do %>
+          <strong class="popup__title pad-inline-half">Move this card to…</strong>
 
-        <% if Current.user.collections.count > 1 %>
           <%= text_field_tag :search, nil, placeholder: "Filter…", class: "input input--transparent txt-small margin-block-half font-weight-normal", autofocus: true,
               type: "search", autocorrect: "off", autocomplete: "off", data: { "1p-ignore": "true", filter_target: "input", action: "input->filter#filter" } %>
-        <% end %>
 
-        <ul class="popup__list margin-block-start-half margin-none-block-end" data-filter-target="list">
-          <% Current.user.collections.ordered_by_recently_accessed.each do |collection| %>
-            <li class="popup__item" data-filter-target="item" data-navigable-list-target="item">
-              <%= button_to card_collection_path(card, params: { collection_id: collection.id }), method: :patch,
-                  class: "popup__btn btn",
-                  form_class: "max-width flex-item-grow" do %>
-                <span class="overflow-ellipsis flex-item-grow"><%= collection.name %></span>
-                <%= icon_tag "check", size: 18, class: "checked flex-item-no-shrink flex-item-justify-end", style: "--icon-size: 1em" if card.collection == collection %>
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
-      <% end %>
-    </dialog>
+          <ul class="popup__list margin-block-start-half margin-none-block-end" data-filter-target="list">
+            <% Current.user.collections.ordered_by_recently_accessed.each do |collection| %>
+              <li class="popup__item" data-filter-target="item" data-navigable-list-target="item">
+                <%= button_to card_collection_path(card, params: { collection_id: collection.id }), method: :patch,
+                    class: "popup__btn btn",
+                    form_class: "max-width flex-item-grow" do %>
+                  <span class="overflow-ellipsis flex-item-grow"><%= collection.name %></span>
+                  <%= icon_tag "check", size: 18, class: "checked flex-item-no-shrink flex-item-justify-end", style: "--icon-size: 1em" if card.collection == collection %>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+      </dialog>
+    <% end %>
   </div>
 <% end %>
