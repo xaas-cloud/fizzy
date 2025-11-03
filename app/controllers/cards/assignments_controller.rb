@@ -2,6 +2,8 @@ class Cards::AssignmentsController < ApplicationController
   include CardScoped
 
   def new
+    @users = @collection.users.active.alphabetically
+    fresh_when @users
   end
 
   def create
