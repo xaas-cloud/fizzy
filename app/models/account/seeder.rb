@@ -55,7 +55,7 @@ class Account::Seeder
         <p>Click the little head with the + next to it, pick yourself.</p>
       HTML
 
-      playground.cards.create! creator: creator, title: "Tag this card “Design” the move it to YES", status: "published", description: <<~HTML
+      playground.cards.create! creator: creator, title: "Tag this card “Design” then move it to YES", status: "published", description: <<~HTML
         <p>Click the little Tag icon, type Design, then save. Then, move the card to the new “YES” column you created in the previous step.</p>
       HTML
 
