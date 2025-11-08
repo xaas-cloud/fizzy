@@ -15,8 +15,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resource :landing
-
   resources :boards do
     scope module: :boards do
       resource :subscriptions
@@ -143,6 +141,8 @@ Rails.application.routes.draw do
       resource :menu
     end
   end
+
+  resource :landing
 
   resources :commands
 
