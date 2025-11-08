@@ -66,21 +66,21 @@ Rails.application.routes.draw do
 
   resources :cards do
     scope module: :cards do
+      resource :board
+      resource :closure
+      resource :column
       resource :goldness
       resource :image
-      resource :pin
-      resource :closure
       resource :not_now
-      resource :triage
+      resource :pin
       resource :publish
       resource :reading
+      resource :triage
       resource :watch
-      resource :board
-      resource :column
 
       resources :assignments
-      resources :taggings
       resources :steps
+      resources :taggings
 
       resources :comments do
         resources :reactions, module: :comments
@@ -162,8 +162,8 @@ Rails.application.routes.draw do
 
   namespace :prompts do
     resources :cards
-    resources :users
     resources :tags
+    resources :users
 
     resources :boards do
       scope module: :boards do
