@@ -4,21 +4,25 @@ writebook_triage:
   color: "#000000"
   board: writebook
   position: 0
+  account: 37s
 
 writebook_in_progress:
   name: In progress
   color: "#3b3633"
   board: writebook
   position: 1
+  account: 37s
 
 writebook_on_hold:
   name: On Hold
   color: "#67695e"
   board: writebook
   position: 2
+  account: 37s
 
 writebook_review:
   name: Review
   color: "#eb7a32"
   board: writebook
   position: 3
+  account: 37s
