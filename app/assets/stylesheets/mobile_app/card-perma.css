@@ -1,0 +1,5 @@
+@layer mobile_app {
+  .card-perma {
+    margin-block-start: 0;
+  }
+}

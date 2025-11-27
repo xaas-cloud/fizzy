@@ -6,13 +6,13 @@
         class: [ "card__column-name btn", { "card__column-name--current": @card.postponed? } ],
         role: "radio",
         aria: { checked: @card.postponed? },
-        form_class: "flex align-center gap-half" %>
+        form_class: "flex align-stretch gap-half" %>
 
     <%= button_to "Maybe?", card_triage_path(@card), method: :delete,
         class: [ "card__column-name card__column-name--stream btn", { "card__column-name--current": @card.awaiting_triage? } ],
         role: "radio",
         aria: { checked: @card.awaiting_triage? },
-        form_class: "flex align-center gap-half" %>
+        form_class: "flex align-stretch gap-half" %>
 
     <% @columns.each do |column| %>
       <%= button_to_set_column @card, column %>
@@ -22,6 +22,6 @@
         class: [ "card__column-name btn", { "card__column-name--current": @card.closed? } ],
         role: "radio",
         aria: { checked: @card.closed? },
-        form_class: "flex align-center gap-half" %>
+        form_class: "flex align-stretch gap-half" %>
   </div>
 <% end %>

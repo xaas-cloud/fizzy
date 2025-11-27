@@ -40,6 +40,7 @@
   .align-center { align-items: center; }
   .align-start { align-items: start; }
   .align-end { align-items: end; }
+  .align-stretch { align-items: stretch; }
 
   .align-self-center { align-self: center; }
   .align-self-end { align-self: end; }
