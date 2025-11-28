@@ -35,6 +35,7 @@ gem "web-push"
 gem "net-http-persistent"
 gem "mittens"
 gem "useragent", bc: "useragent"
+gem "minitar"
 
 # Telemetry, logging, and operations
 gem "mission_control-jobs"
