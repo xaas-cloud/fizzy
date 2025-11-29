@@ -32,28 +32,22 @@ Fizzy is deployed with [Kamal](https://kamal-deploy.org/). You'll need to have t
 
 See the [Fizzy handbook](https://handbooks.37signals.works/18/fizzy) for runbooks and more.
 
-### Beta
-
-Beta is primarily intended for testing product features.
-
-Beta tenant is:
-
-- https://fizzy-beta.37signals.com
-
-This environment uses local disk for Active Storage.
-
-
-### Staging
-
-Staging is primarily intended for testing infrastructure changes.
-
-- https://fizzy.37signals-staging.com/
-
-This environment uses a FlashBlade bucket for blob storage, and shares nothing with Production. We may periodically copy data here from production.
-
-
 ### Production
 
 - https://app.fizzy.do/
 
 This environment uses a FlashBlade bucket for blob storage.
+
+### Beta
+
+Beta is primarily intended for testing product features. It uses the same production database and Active Storage configuration.
+
+Beta tenant is:
+
+- https://fizzy-beta.37signals.com
+
+### Staging
+
+Staging is primarily intended for testing infrastructure changes. It uses production-like but separate database and Active Storage configurations.
+
+- https://fizzy.37signals-staging.com/
