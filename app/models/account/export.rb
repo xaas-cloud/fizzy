@@ -63,7 +63,7 @@ class Account::Export < ApplicationRecord
       end
 
       card.export_attachments.each do |attachment|
-        zip.get_output_stream(attachment[:path]) do |f|
+        zip.get_output_stream(attachment[:path], compression_method: Zip::Entry::STORED) do |f|
           attachment[:blob].download { |chunk| f.write(chunk) }
         end
       rescue ActiveStorage::FileNotFoundError
