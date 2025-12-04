@@ -69,7 +69,6 @@ ActiveRecord::Schema[8.2].define(version: 2025_12_04_100546) do
   create_table "accounts", id: :uuid, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "cards_count", default: 0, null: false
     t.datetime "created_at", null: false
-    t.bigint "created_cards_count", default: 0, null: false
     t.bigint "external_account_id"
     t.string "name", null: false
     t.datetime "updated_at", null: false

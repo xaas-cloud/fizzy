@@ -7,15 +7,13 @@ class Account::SubscriptionsController < ApplicationController
   end
 
   def create
-    plan = Plan.find(params[:plan])
-
     session = Stripe::Checkout::Session.create \
       customer: find_or_create_stripe_customer,
       mode: "subscription",
-      line_items: [{ price: plan.stripe_price_id, quantity: 1 }],
+      line_items: [ { price: Plan.paid.stripe_price_id, quantity: 1 } ],
       success_url: account_subscription_url + "?session_id={CHECKOUT_SESSION_ID}",
       cancel_url: account_subscription_url,
-      metadata: { account_id: @account.id, plan_key: plan.key }
+      metadata: { account_id: @account.id, plan_key: Plan.paid.key }
 
     redirect_to session.url, allow_other_host: true
   end
@@ -47,7 +45,7 @@ class Account::SubscriptionsController < ApplicationController
 
     def create_stripe_customer
       Stripe::Customer.create(email: Current.user.identity.email_address, name: @account.name, metadata: { account_id: @account.id }).tap do |customer|
-        @account.create_subscription!(stripe_customer_id: customer.id, plan_key: params[:plan], status: "incomplete")
+        @account.create_subscription!(stripe_customer_id: customer.id, plan_key: Plan.paid.key, status: "incomplete")
       end
     end
 end

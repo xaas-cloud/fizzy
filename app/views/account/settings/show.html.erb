@@ -14,7 +14,7 @@
   <p>Current plan: <strong><%= Current.account.plan.name %></strong></p>
 
   <% if Current.account.plan.free? %>
-    <%= button_to "Upgrade to Monthly", account_subscription_path(plan: :monthly_v1), class: "btn btn--primary", data: { turbo: false } %>
+    <%= button_to "Upgrade to Monthly", account_subscription_path, class: "btn btn--primary", data: { turbo: false } %>
   <% end %>
 
   <% if Current.account.subscription %>
