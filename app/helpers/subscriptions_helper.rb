@@ -1,7 +1,9 @@
 module SubscriptionsHelper
   def subscription_period_end_action(subscription)
-    if subscription.canceled?
-      subscription.cancel_at.past? ? "Ended" : "Ends"
+    if subscription.to_be_canceled?
+      "Ends"
+    elsif subscription.canceled?
+      "Ended"
     else
       "Renews"
     end

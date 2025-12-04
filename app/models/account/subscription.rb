@@ -13,7 +13,7 @@ class Account::Subscription < ApplicationRecord
     !plan.free? && active?
   end
 
-  def canceled?
-    cancel_at.present?
+  def to_be_canceled?
+    active? && cancel_at.present?
   end
 end

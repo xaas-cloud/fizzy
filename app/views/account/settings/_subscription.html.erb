@@ -1,4 +1,4 @@
-<p>Status: <strong><%= subscription.canceled? ? "Canceled" : subscription.status.titleize %></strong></p>
+<p>Status: <strong><%= subscription.status.titleize %></strong></p>
 <% if subscription.current_period_end %>
   <p><%= subscription_period_end_action(subscription) %>: <strong><%= subscription.current_period_end.to_date.to_fs(:long) %></strong></p>
 <% end %>
