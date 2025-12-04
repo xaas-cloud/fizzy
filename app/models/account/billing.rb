@@ -12,4 +12,8 @@ module Account::Billing
   def subscribed?
     subscription&.stripe_customer_id.present?
   end
+
+  def card_limit_exceeded?
+    cards_count > plan.card_limit
+  end
 end
