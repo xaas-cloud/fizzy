@@ -35,6 +35,17 @@ class CardsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to draft
   end
 
+  test "cannot create cards when card limit exceeded" do
+    logout_and_sign_in_as :mike
+    accounts(:initech).update_column(:cards_count, 1001)
+
+    assert_no_difference -> { Card.count } do
+      post board_cards_path(boards(:miltons_wish_list), script_name: accounts(:initech).slug)
+    end
+
+    assert_response :forbidden
+  end
+
   test "show" do
     get card_path(cards(:logo))
     assert_response :success

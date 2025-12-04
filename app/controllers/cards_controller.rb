@@ -4,6 +4,7 @@ class CardsController < ApplicationController
   before_action :set_board, only: %i[ create ]
   before_action :set_card, only: %i[ show edit update destroy ]
   before_action :ensure_permission_to_administer_card, only: %i[ destroy ]
+  before_action :ensure_can_create_cards, only: %i[ create ]
 
   def index
     set_page_and_extract_portion_from @filter.cards
@@ -40,6 +41,10 @@ class CardsController < ApplicationController
 
     def ensure_permission_to_administer_card
       head :forbidden unless Current.user.can_administer_card?(@card)
+    end
+
+    def ensure_can_create_cards
+      head :forbidden if Current.account.card_limit_exceeded?
     end
 
     def card_params
