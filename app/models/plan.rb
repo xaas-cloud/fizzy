@@ -21,7 +21,7 @@ class Plan
 
     def find(key)
       @all_by_key ||= all.index_by(&:key).with_indifferent_access
-      @all_by_key[key.to_sym]
+      @all_by_key[key]
     end
 
     alias [] find
