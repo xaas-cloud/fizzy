@@ -55,7 +55,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
           end
         end
 
-        assert_redirected_to session_magic_link_path
+        assert_response :unprocessable_entity
       end
     end
   end
