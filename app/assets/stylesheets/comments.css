@@ -96,7 +96,6 @@
   .comment--system {
     --comment-padding-block: var(--block-space-half);
 
-    display: none;
     max-inline-size: var(--comment-max);
     text-align: center;
     transition: var(--dialog-duration) allow-discrete;
@@ -104,24 +103,6 @@
 
     .comments--system-expanded & {
       display: flex;
-    }
-
-    &:nth-last-child(1 of &):not(:has(~ * &) *):not(:has(~ &) *):not(:has(~ * &)):not(:has(&)) {
-      /* This unholy selector targets the last system comment in the document */
-      /* Hat-tip, https://css-tip.com/last-element-dom/ */
-      display: flex;
-
-      .comment__history  {
-        display: grid;
-      }
-    }
-
-    &:nth-child(1 of &):not(:has(&) ~ * *):not(:has(&) ~ *):not(& ~ * *):not(& *) {
-      /* Targets the first system comment in the document to effectively */
-      /* hide the "Show history" button if there's only one entry */
-      .comment__history  {
-        display: none;
-      }
     }
 
     &::before {
@@ -174,6 +155,30 @@
 
     .reactions {
       display: none !important;
+    }
+  }
+
+  .comment-wrapper--system {
+    display: none;
+
+    .comments--system-expanded & {
+      display: flex;
+    }
+  }
+
+  /* Show the last system comment */
+  :nth-last-child(1 of .comment-wrapper--system) {
+    display: flex;
+
+    .comment__history {
+      display: grid;
+    }
+  }
+
+  /* Hide the "Show history" button if there's only one system comment */
+  :nth-child(1 of .comment-wrapper--system) {
+    .comment__history {
+      display: none;
     }
   }
 }
