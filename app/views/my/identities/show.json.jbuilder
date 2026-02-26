@@ -1,6 +1,6 @@
 json.id @identity.id
 
-json.accounts @identity.users do |user|
+json.accounts @active_users do |user|
   json.partial! "my/identities/account", account: user.account
   json.user user, partial: "users/user", as: :user
 end
