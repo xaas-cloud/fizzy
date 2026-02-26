@@ -4,7 +4,7 @@ BridgeElement.prototype.getButton = function() {
   const button = {
     title: this.title,
     icon: this.getIcon(),
-    showLabel: this.getShowLabel(),
+    displayTitle: this.getDisplayTitle(),
     isMainAction: this.getIsMainAction()
   }
   console.log(button)
@@ -21,8 +21,8 @@ BridgeElement.prototype.getIcon = function() {
   return null
 }
 
-BridgeElement.prototype.getShowLabel = function() {
-  return !!this.bridgeAttribute(`show-label`)
+BridgeElement.prototype.getDisplayTitle = function() {
+  return !!this.bridgeAttribute(`display-title`)
 }
 
 BridgeElement.prototype.getIsMainAction = function() {
