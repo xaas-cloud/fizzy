@@ -115,7 +115,10 @@ class Notification::PushTarget::WebTest < ActiveSupport::TestCase
 
   test "payload for board change includes new board name" do
     event = events(:logo_published)
-    event.update!(action: "card_board_changed", particulars: { "particulars" => { "old_board" => "Old Board", "new_board" => "New Board" } })
+    event.update!(
+      action: "card_board_changed",
+      particulars: { "particulars" => { "old_board" => "Old Board", "new_board" => "New Board" } }
+    )
     @notification.update!(source: event)
 
     @web_push_pool.expects(:queue).once.with do |payload, _|
@@ -139,7 +142,10 @@ class Notification::PushTarget::WebTest < ActiveSupport::TestCase
 
   test "payload for collection change includes new collection name" do
     event = events(:logo_published)
-    event.update!(action: "card_collection_changed", particulars: { "particulars" => { "new_collection" => "New Collection" } })
+    event.update!(
+      action: "card_collection_changed",
+      particulars: { "particulars" => { "new_collection" => "New Collection" } }
+    )
     @notification.update!(source: event)
 
     @web_push_pool.expects(:queue).once.with do |payload, _|
@@ -149,9 +155,36 @@ class Notification::PushTarget::WebTest < ActiveSupport::TestCase
     Notification::PushTarget::Web.new(@notification).process
   end
 
+  test "payload for collection change falls back when collection name is missing" do
+    event = events(:logo_published)
+    event.update!(action: "card_collection_changed", particulars: {})
+    @notification.update!(source: event)
+
+    @web_push_pool.expects(:queue).once.with do |payload, _|
+      payload[:body] == "Moved by #{event.creator.name}"
+    end
+
+    Notification::PushTarget::Web.new(@notification).process
+  end
+
+  test "payload for collection change falls back when collection name is blank" do
+    event = events(:logo_published)
+    event.update!(action: "card_collection_changed", particulars: { "particulars" => { "new_collection" => "" } })
+    @notification.update!(source: event)
+
+    @web_push_pool.expects(:queue).once.with do |payload, _|
+      payload[:body] == "Moved by #{event.creator.name}"
+    end
+
+    Notification::PushTarget::Web.new(@notification).process
+  end
+
   test "payload for title change includes new title" do
     event = events(:logo_published)
-    event.update!(action: "card_title_changed", particulars: { "particulars" => { "old_title" => "Old Title", "new_title" => "New Title" } })
+    event.update!(
+      action: "card_title_changed",
+      particulars: { "particulars" => { "old_title" => "Old Title", "new_title" => "New Title" } }
+    )
     @notification.update!(source: event)
 
     @web_push_pool.expects(:queue).once.with do |payload, _|
