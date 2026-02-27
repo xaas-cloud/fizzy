@@ -140,6 +140,21 @@ class Notification::PushTarget::WebTest < ActiveSupport::TestCase
     Notification::PushTarget::Web.new(@notification).process
   end
 
+  test "payload for board change falls back when board name is blank" do
+    event = events(:logo_published)
+    event.update!(
+      action: "card_board_changed",
+      particulars: { "particulars" => { "new_board" => "" } }
+    )
+    @notification.update!(source: event)
+
+    @web_push_pool.expects(:queue).once.with do |payload, _|
+      payload[:body] == "Moved by #{event.creator.name}"
+    end
+
+    Notification::PushTarget::Web.new(@notification).process
+  end
+
   test "payload for collection change includes new collection name" do
     event = events(:logo_published)
     event.update!(
@@ -197,6 +212,18 @@ class Notification::PushTarget::WebTest < ActiveSupport::TestCase
   test "payload for title change falls back when title is missing" do
     event = events(:logo_published)
     event.update!(action: "card_title_changed", particulars: {})
+    @notification.update!(source: event)
+
+    @web_push_pool.expects(:queue).once.with do |payload, _|
+      payload[:body] == "Renamed by #{event.creator.name}"
+    end
+
+    Notification::PushTarget::Web.new(@notification).process
+  end
+
+  test "payload for title change falls back when title is blank" do
+    event = events(:logo_published)
+    event.update!(action: "card_title_changed", particulars: { "particulars" => { "new_title" => "" } })
     @notification.update!(source: event)
 
     @web_push_pool.expects(:queue).once.with do |payload, _|
